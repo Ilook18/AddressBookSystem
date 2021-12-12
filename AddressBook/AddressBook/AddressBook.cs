@@ -7,7 +7,7 @@ namespace AddressBookSystem
     public class AddressBook
     {
         List<Contact> addressList = new List<Contact>();
-       
+        Dictionary<string, List<Contact>> dictionary = new Dictionary<string, List<Contact>>();
         public void AddContact(Contact contact)
         {
             addressList.Add(contact);
@@ -91,6 +91,32 @@ namespace AddressBookSystem
                 Console.WriteLine(contact.FirstName + "\t" + contact.LastName + "\t" + contact.City + "---" + contact.PhoneNumber);
             }
         }
-
+        public void AddUniqueContact(string unique)
+        {
+            foreach (var contact in addressList)
+            {
+                if (addressList.Contains(contact))
+                {
+                    string uniqueName = Console.ReadLine();
+                    dictionary.Add(uniqueName, addressList);
+                }
+            }
+        }
+        public void DisplayUniqueContacts()
+        {
+            Console.WriteLine("Enter name in dictionary to display contact details");
+            string name = Console.ReadLine();
+            foreach (var contacts in dictionary)
+            {
+                if (contacts.Key == name)
+                {
+                    foreach (var data in contacts.Value)
+                    {
+                        Console.WriteLine("The Contact details of " + data.FirstName + "are : \n" + data.FirstName + " " + data.LastName + " " + data.Address + " " + data.City + " " + data.State + " " + data.Zip + " " + data.PhoneNumber + " " + data.Email);
+                    }
+                }
+            }
+           
+        }
     }
 }
