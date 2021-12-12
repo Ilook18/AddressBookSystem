@@ -132,6 +132,25 @@ namespace AddressBookSystem
                 Console.WriteLine("The Name You are trying to check has Duplicate Entries", checkD);
             }
         }
+        public void SearchPerson()
+        {
+            Console.WriteLine("Enter the City name to Check Persons");
+            string City = Console.ReadLine();
+            List<Contact> cityList = addressList.FindAll(e => e.City == City);
+            foreach (var place in cityList)
+            {
+                Console.WriteLine("Found person {0} {1} in the Address Book, living in the City {2}", place.FirstName, place.LastName, place.City);
+            }
+            Console.WriteLine("Enter the State name to check Persons");
+            string state = Console.ReadLine();
+            List<Contact> stateList = addressList.FindAll(e => e.State == state);
+            foreach (var sta in stateList)
+            {
+                Console.WriteLine("Found the name of {0} {1} in the Address Book, living in the City {2}", sta.FirstName, sta.LastName, sta.State);
+            }
+        }
+      
     }
-}
+}            
+    
     
