@@ -118,5 +118,20 @@ namespace AddressBookSystem
             }
            
         }
+        public void CheckDuplicateEntry()
+        {
+            Console.WriteLine("Enter the Name to Check whether the name is Duplicate or not");
+            string checkD = Console.ReadLine();
+            var person = addressList.Find(e => e.FirstName.Equals(checkD));
+            if (person == null)
+            {
+                Console.WriteLine("The Name you are trying to check is Not in the Address Book");
+            }
+            else
+            {
+                Console.WriteLine("The Name You are trying to check has Duplicate Entries", checkD);
+            }
+        }
     }
 }
+    
