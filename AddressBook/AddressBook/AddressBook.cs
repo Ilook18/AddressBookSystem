@@ -7,6 +7,7 @@ namespace AddressBookSystem
     public class AddressBook
     {
         List<Contact> addressList = new List<Contact>();
+       
         public void AddContact(Contact contact)
         {
             addressList.Add(contact);
@@ -67,15 +68,7 @@ namespace AddressBookSystem
                 }
             }
         }
-        public void Display()
-        {
-            Console.WriteLine("\n");
-            Console.WriteLine("Contacts in Your Device : ");
-            foreach (var contact in addressList)
-            {
-                Console.WriteLine(contact.FirstName + "\t" + contact.LastName + "\t" + contact.City + "---" + contact.PhoneNumber);
-            }
-        }
+        
         public void DeleteContact(string name)
         {
             Contact delete = new Contact();
@@ -89,6 +82,15 @@ namespace AddressBookSystem
             addressList.Remove(delete);
             Console.WriteLine(name + " contact is deleted from the Address Book");
         }
-       
+        public void Display()
+        {
+            Console.WriteLine("\n");
+            Console.WriteLine("Contacts in Your Device : ");
+            foreach (var contact in addressList)
+            {
+                Console.WriteLine(contact.FirstName + "\t" + contact.LastName + "\t" + contact.City + "---" + contact.PhoneNumber);
+            }
+        }
+
     }
 }
