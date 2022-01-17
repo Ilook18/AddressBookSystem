@@ -1,5 +1,7 @@
-﻿using System;
+﻿using CsvHelper;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -70,7 +72,7 @@ namespace AddressBookSystem
                 }
             }
         }
-        
+
         public void DeleteContact(string name)
         {
             Contact delete = new Contact();
@@ -120,7 +122,7 @@ namespace AddressBookSystem
             }
             Console.WriteLine("Sorry this contact is already exits");
             return;
-           
+
         }
         public void CheckDuplicateEntry()
         {
@@ -153,7 +155,7 @@ namespace AddressBookSystem
                 Console.WriteLine("Found the name of {0} {1} in the Address Book, living in the City {2}", sta.FirstName, sta.LastName, sta.State);
             }
         }
-      public void CountPersons()
+        public void CountPersons()
         {
             Console.WriteLine("Enter the city name to check its count : ");
             string city = Console.ReadLine();
@@ -182,30 +184,30 @@ namespace AddressBookSystem
         }
         public void Sorting()
         {
-            
-                Console.WriteLine("Enter the Address Book name that you want to sort : ");
-                string addressBookName = Console.ReadLine();
-                Console.WriteLine("How do you want the Sort the Addressbook : \n 1. Sort based on City \n 2. Sort based on State \n 3. Sort based on Zip");
-                int option = Convert.ToInt32(Console.ReadLine());
-                switch (option)
-                {
-                    case 1:
-                        dictionary[addressBookName].Sort((x, y) => x.City.CompareTo(y.City));
-                        Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
-                        Display();
-                        break;
-                    case 2:
-                        dictionary[addressBookName].Sort((x, y) => x.State.CompareTo(y.State));
-                        Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
-                        Display();
-                        break;
-                    case 3:
-                        dictionary[addressBookName].Sort((x, y) => x.Zip.CompareTo(y.Zip));
-                        Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
-                        Display();
-                        break;
-                }
+
+            Console.WriteLine("Enter the Address Book name that you want to sort : ");
+            string addressBookName = Console.ReadLine();
+            Console.WriteLine("How do you want the Sort the Addressbook : \n 1. Sort based on City \n 2. Sort based on State \n 3. Sort based on Zip");
+            int option = Convert.ToInt32(Console.ReadLine());
+            switch (option)
+            {
+                case 1:
+                    dictionary[addressBookName].Sort((x, y) => x.City.CompareTo(y.City));
+                    Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
+                    Display();
+                    break;
+                case 2:
+                    dictionary[addressBookName].Sort((x, y) => x.State.CompareTo(y.State));
+                    Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
+                    Display();
+                    break;
+                case 3:
+                    dictionary[addressBookName].Sort((x, y) => x.Zip.CompareTo(y.Zip));
+                    Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
+                    Display();
+                    break;
             }
+        }
         public void ReadAndWriteFile()
         {
             Console.WriteLine("After reading the file");
@@ -221,9 +223,40 @@ namespace AddressBookSystem
                 Console.WriteLine(File.ReadAllText(FilePath));
             }
         }
+        public void implementCSVDataHandling()
+        {
+            string importFilePath = @"C:\Users\DELL\source\repos\AddressBook\Files\address.csv";
+            string exportFilePath = @"C:\Users\DELL\source\repos\AddressBook\Files\export.csv";
+
+            using (var reader = new StreamReader(importFilePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Contact>().ToList();
+                Console.WriteLine("Read data successfully from adress csv.");
+                foreach (Contact contact in records)
+                {
+                    Console.Write("\t" + contact.FirstName);
+                    Console.Write("\t" + contact.LastName);
+                    Console.Write("\t" + contact.Address);
+                    Console.Write("\t" + contact.City);
+                    Console.Write("\t" + contact.State);
+                    Console.Write("\t" + contact.Zip);
+                    Console.Write("\t" + contact.PhoneNumber);
+                    Console.Write("\t" + contact.Email);
+                    Console.Write("\t");
+                }
+                Console.WriteLine("\t************Now reading from csv file and writing to csv file");
+
+                using (var writer = new StreamWriter(exportFilePath))
+                using (var csvExport = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csvExport.WriteRecords(records);
+                }
+            }
+
         }
-        
     }
+}
 
                
     
