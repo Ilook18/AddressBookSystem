@@ -12,7 +12,7 @@ namespace AddressBookSystem
             while (flag)
             {
                 Console.WriteLine("Welcome to the Address Book Program");
-                Console.WriteLine("Enter what you want to do : \n 1. Create Contacts \n 2. Add Contacts \n 3. Edit Contacts \n 4. Delete Contact\n 5. Multiple Contacts\n 6. Add Unique Contacts\n 7. Check Duplicate Entry\n 8. Search Persons\n 9.View Persons\n 10.Count Persons\n 11.Sort by name\n 12.Sorting\n 13.Exit");
+                Console.WriteLine("Enter what you want to do : \n 1. Create Contacts \n 2. Add Contacts \n 3. Edit Contacts \n 4. Delete Contact\n 5. Multiple Contacts\n 6. Add Unique Contacts\n 7. Check Duplicate Entry\n 8. Search Persons\n 9.View Persons\n 10.Count Persons\n 11.Sort by name\n 12.Sorting\n 13.Read/Write File\n 14.Exit");
                 int option = Convert.ToInt32(Console.ReadLine());
                 switch (option)
                 {
@@ -99,9 +99,11 @@ namespace AddressBookSystem
                         addressBook.Sorting();
                         break;
                     case 13:
+                        addressBook.ReadAndWriteFile();
+                        break;
+                    case 14:
                         flag = false;
                         break;
-                    
                 }
             }
         }

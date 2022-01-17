@@ -206,9 +206,22 @@ namespace AddressBookSystem
                         break;
                 }
             }
-       
+        public void ReadAndWriteFile()
+        {
+            Console.WriteLine("After reading the file");
+            string FilePath = @"C:\Users\DELL\source\repos\AddressBook\Files\File.txt";
+            string Text = File.ReadAllText(FilePath);
+            Console.WriteLine(Text);
+
+            Console.WriteLine("After Writing into the file");
+            using (StreamWriter writer = File.AppendText(FilePath))
+            {
+                writer.WriteLine("Email: anirudhanand984@gmail.com");
+                writer.Close();
+                Console.WriteLine(File.ReadAllText(FilePath));
+            }
         }
-      }
+        }
         
     }
 
