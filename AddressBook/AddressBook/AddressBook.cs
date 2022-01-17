@@ -255,6 +255,38 @@ namespace AddressBookSystem
             }
 
         }
+        public void ReadFromCsvAndWriteToJSON()
+        {
+            string importFilePath = @"C:\Users\DELL\source\repos\AddressBook\Files\JsonData.csv";
+            string exportFilePath = @"C:\Users\DELL\source\repos\AddressBook\Files\export.json";
+
+            using (var reader = new StreamReader(importFilePath))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                var records = csv.GetRecords<Contact>().ToList();
+                Console.WriteLine("Read data successfully from JsonData csv.");
+                foreach (Contact contact in records)
+                {
+                    Console.Write("\t" + contact.FirstName);
+                    Console.Write("\t" + contact.LastName);
+                    Console.Write("\t" + contact.Address);
+                    Console.Write("\t" + contact.City);
+                    Console.Write("\t" + contact.State);
+                    Console.Write("\t" + contact.Zip);
+                    Console.Write("\t" + contact.PhoneNumber);
+                    Console.Write("\t" + contact.Email);
+                    Console.Write("\t");
+                }
+                Console.WriteLine("\t************Now reading from csv file and writing to json file");
+
+                using (var writer = new StreamWriter(exportFilePath))
+                using (var csvExport = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csvExport.WriteRecords(records);
+                }
+                Console.WriteLine("The data is written in export json file");
+            }
+        }
     }
 }
 
