@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -89,10 +90,10 @@ namespace AddressBookSystem
             Console.WriteLine("Contacts in Your Device : ");
             foreach (var contact in addressList)
             {
-                Console.WriteLine(contact.FirstName + "\t" + contact.LastName + "\t" + contact.City + "---" + contact.PhoneNumber);
+                Console.WriteLine(contact.FirstName + "\t" + contact.LastName + "\t" + contact.Address + "\t" + contact.City + "\t" + contact.State + "\t" + contact.Zip + "\t" + contact.PhoneNumber + "\t" + contact.Email);
             }
         }
-        public void AddUniqueContact(string unique)
+        public void AddUniqueContact()
         {
             foreach (var contact in addressList)
             {
@@ -107,16 +108,18 @@ namespace AddressBookSystem
         {
             Console.WriteLine("Enter name in dictionary to display contact details");
             string name = Console.ReadLine();
-            foreach (var contacts in dictionary)
+            foreach (var contact in dictionary)
             {
-                if (contacts.Key == name)
+                if (contact.Key == name)
                 {
-                    foreach (var data in contacts.Value)
+                    foreach (var data in contact.Value)
                     {
                         Console.WriteLine("The Contact details of " + data.FirstName + "are : \n" + data.FirstName + " " + data.LastName + " " + data.Address + " " + data.City + " " + data.State + " " + data.Zip + " " + data.PhoneNumber + " " + data.Email);
                     }
                 }
             }
+            Console.WriteLine("Sorry this contact is already exits");
+            return;
            
         }
         public void CheckDuplicateEntry()
@@ -130,7 +133,7 @@ namespace AddressBookSystem
             }
             else
             {
-                Console.WriteLine("The Name You are trying to check has Duplicate Entries", checkD);
+                Console.WriteLine("The Name You are trying to search already exist", checkD);
             }
         }
         public void SearchPerson()
@@ -162,7 +165,24 @@ namespace AddressBookSystem
             List<Contact> stateList = addressList.FindAll(e => e.State == state);
             Console.WriteLine("The number of contact persons in the state {0} are {1}", state, stateList.Count());
         }
+        public void AddressBookSorting()
+        {
+            Console.WriteLine("Enter the Address Book name that you want to sort : ");
+            string addressBookName = Console.ReadLine();
+            if (dictionary.ContainsKey(addressBookName))
+            {
+                dictionary[addressBookName].Sort((a, b) => a.FirstName.CompareTo(b.FirstName));
+                Console.WriteLine("After Sorting alphabetically, The Address Book is arranged as : ");
+                Display();
+            }
+            else
+            {
+                Console.WriteLine("The {0} Addressbook does not exist. Please Enter a Valid Addressbook Name. ", addressBookName);
+            }
+        }
+      }
     }
-}            
+
+               
     
     

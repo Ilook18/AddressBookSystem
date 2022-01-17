@@ -7,6 +7,7 @@ namespace AddressBookSystem
     public class Contact
     {
         List<Contact> addressList = new List<Contact>();
+         Dictionary<string, List<Contact>> dictionary = new Dictionary<string, List<Contact>>();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Address { get; set; }
